@@ -1,10 +1,9 @@
 import createError from 'http-errors';
 import express from 'express';
 import bcrypt from 'bcrypt';
-import dbMiddleware from '../middlewares/dbMiddleware.js';
+import db from '../db.js';
 
 const router = express.Router();
-router.use(dbMiddleware);
 
 router.get('/', function(req, res) {
   res.render('signin');
@@ -13,7 +12,7 @@ router.get('/', function(req, res) {
 router.post('/', async function(req, res, next) {
   try {
     const cmd = 'SELECT pw from user where id = ?';
-    const result = await req.conn.query(cmd, [req.body.id]);
+    const result = await db.query(cmd, [req.body.id]);
     bcrypt.compare(req.body.pw, result[0][0].pw, (err, result) => {
       if (err) {
         // Handle error

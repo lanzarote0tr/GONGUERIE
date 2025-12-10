@@ -25,7 +25,7 @@ NODE_ENV=development
 PORT=3000
 
 DB_HOST="Your DB Host"
-DB_POST="Your DB Port"
+DB_PORT="Your DB Port"
 DB_USER="Your DB User"
 DB_PASSWORD="Your DB Password"
 DB_DATABASE="Your DB Database"

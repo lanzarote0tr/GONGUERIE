@@ -1,10 +1,9 @@
 import createError from 'http-errors';
 import express from 'express';
+import db from '../db.js';
 import * as helper from '../helper.js';
-import dbMiddleware from '../middlewares/dbMiddleware.js';
 
 const router = express.Router();
-router.use(dbMiddleware);
 
 router.get('/', function(req, res, next) {
   res.render("writepost");
@@ -22,7 +21,7 @@ router.post('/', async function(req, res, next) {
 
   try {
     const cmd = 'INSERT INTO announcements (title, author, written_date, view_count, category, contents) VALUES (?, ?, now(), 0, ?, ?)';
-    const result = await req.conn.query(cmd, [req.body.title, 'Unknown User', category, req.body.content]);
+    const result = await db.query(cmd, [req.body.title, 'Unknown User', category, req.body.content]);
     res.status(201).send({id: result[0].insertId});
   } catch(err) {
     console.error('Query Error: ', err);

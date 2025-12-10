@@ -1,10 +1,9 @@
 import createError from 'http-errors';
 import express from 'express';
 import bcrypt from 'bcrypt';
-import dbMiddleware from '../middlewares/dbMiddleware.js';
+import db from '../db.js';
 
 const router = express.Router();
-router.use(dbMiddleware);
 
 router.get('/', function(req, res) {
   res.render('signup');
@@ -21,7 +20,7 @@ router.post('/', function(req, res, next) {
     // Hashing successful, 'hash' contains the hashed password
     try {
       const cmd = 'INSERT INTO user (id, pw) VALUES ( ? , ? );';
-      await req.conn.query(cmd, [req.body.id, hash]);
+      await db.query(cmd, [req.body.id, hash]);
       req.session.user = {
         id: req.body.id,
         authorized: true,
