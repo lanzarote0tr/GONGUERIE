@@ -76,14 +76,9 @@ app.use(function(err, req, res, next) {
   }
 });
 
-export default app;
-
-// Start server when run directly
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  app.listen(port, () => {
-    console.log(`Server listening on http://localhost:${port}`);
-  }).on('error', (err) => {
-    console.error('Server error:', err);
-    process.exit(1);
-  });
-}
+app.listen(port, () => {
+  console.log(`Server listening on http://localhost:${port}`);
+}).on('error', (err) => {
+  console.error('Server error:', err);
+  process.exit(1);
+});
