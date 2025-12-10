@@ -1,8 +1,7 @@
-const { response } = require("../app");
-const db = require("../config/mysql");
-var mysql = require("mysql2/promise");
+import mysql from 'mysql2/promise';
+import createError from 'http-errors';
 
-var db_info = {
+const db_info = {
   host:process.env.DB_HOST,
   post:process.env.DB_POST,
   user:process.env.DB_USER,
@@ -10,7 +9,7 @@ var db_info = {
   database:process.env.DB_DATABASE,
 }
 
-module.exports = async (req, res, next) => {
+const dbMiddleware = async (req, res, next) => {
   try {
     req.conn = await mysql.createConnection(db_info);
     next();
@@ -19,3 +18,5 @@ module.exports = async (req, res, next) => {
     // res.redirect(301, '/error?errorcode=500');
   }
 };
+
+export default dbMiddleware;

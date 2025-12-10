@@ -1,6 +1,6 @@
-var mysql = require("mysql2/promise");
-const { connect } = require("../routes");
-var db_info = {
+import mysql from 'mysql2/promise';
+
+const db_info = {
   host:process.env.DB_HOST,
   post:process.env.DB_POST,
   user:process.env.DB_USER,
@@ -8,7 +8,7 @@ var db_info = {
   database:process.env.DB_DATABASE,
 }
 
-module.exports = {
+const mysqlClient = {
   init:function() {
     return mysql.createConnection(db_info);
   },
@@ -19,3 +19,5 @@ module.exports = {
     });
   },
 };
+
+export default mysqlClient;

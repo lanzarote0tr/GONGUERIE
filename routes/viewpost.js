@@ -1,14 +1,15 @@
-var createError = require('http-errors');
-var express = require('express');
-var router = express.Router();
-const helper = require('../helper');
-const dbMiddleware = require('../middlewares/dbMiddleware');
+import createError from 'http-errors';
+import express from 'express';
+import * as helper from '../helper.js';
+import dbMiddleware from '../middlewares/dbMiddleware.js';
+
+const router = express.Router();
 router.use(dbMiddleware);
 
 router.get('/', async function(req, res, next) {
-  if(req.query.postid) {
+  if (req.query.postid) {
     try {
-      var cmd = "UPDATE announcements SET view_count = view_count + 1 WHERE n = ?";
+      let cmd = "UPDATE announcements SET view_count = view_count + 1 WHERE n = ?";
       await req.conn.query(cmd, [req.query.postid]);
       cmd = "SELECT * FROM announcements WHERE n = ?";
       const result = await req.conn.query(cmd, [req.query.postid]);
@@ -23,9 +24,9 @@ router.get('/', async function(req, res, next) {
 });
 
 router.delete('/', async function(req, res, next) {
-  if(req.query.postid) {
+  if (req.query.postid) {
     try {
-      var cmd = "DELETE FROM announcements WHERE n = ?";
+      const cmd = "DELETE FROM announcements WHERE n = ?";
       await req.conn.query(cmd, [req.query.postid]);
       res.status(200).send();
     } catch(err) {
@@ -37,5 +38,5 @@ router.delete('/', async function(req, res, next) {
   }
 });
 
-module.exports = router;
+export default router;
  

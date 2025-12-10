@@ -1,18 +1,22 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var expressSession = require('express-session');
-var logger = require('morgan');
+import createError from 'http-errors';
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import cookieParser from 'cookie-parser';
+import expressSession from 'express-session';
+import logger from 'morgan';
 
-var indexRouter = require('./routes/index');
-var announcementsRouter = require('./routes/announcements');
-var viewPostRouter = require('./routes/viewpost');
-var writePostRouter = require('./routes/writepost');
-var signInRouter = require('./routes/signin');
-var signUpRouter = require('./routes/signup');
+import indexRouter from './routes/index.js';
+import announcementsRouter from './routes/announcements.js';
+import viewPostRouter from './routes/viewpost.js';
+import writePostRouter from './routes/writepost.js';
+import signInRouter from './routes/signin.js';
+import signUpRouter from './routes/signup.js';
 
-var app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -70,4 +74,4 @@ app.use(function(err, req, res, next) {
   }
 });
 
-module.exports = app;
+export default app;

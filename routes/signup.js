@@ -1,9 +1,9 @@
-var createError = require('http-errors');
-var express = require('express');
-var router = express.Router();
-const helper = require('../helper');
-const bcrypt = require('bcrypt');
-const dbMiddleware = require('../middlewares/dbMiddleware');
+import createError from 'http-errors';
+import express from 'express';
+import bcrypt from 'bcrypt';
+import dbMiddleware from '../middlewares/dbMiddleware.js';
+
+const router = express.Router();
 router.use(dbMiddleware);
 
 router.get('/', function(req, res) {
@@ -20,7 +20,7 @@ router.post('/', function(req, res, next) {
     }
     // Hashing successful, 'hash' contains the hashed password
     try {
-      var cmd = 'INSERT INTO user (id, pw) VALUES ( ? , ? );';
+      const cmd = 'INSERT INTO user (id, pw) VALUES ( ? , ? );';
       await req.conn.query(cmd, [req.body.id, hash]);
       req.session.user = {
         id: req.body.id,
@@ -34,4 +34,4 @@ router.post('/', function(req, res, next) {
   });
 });
 
-module.exports = router;
+export default router;

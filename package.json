@@ -1,6 +1,7 @@
 {
   "name": "gonguerie",
   "version": "0.0.1",
+  "type": "module",
   "scripts": {
     "test": "nodemon --env-file=.env ./bin/www",
     "start": "node --env-file=.env ./bin/www"

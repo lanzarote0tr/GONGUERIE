@@ -1,5 +1,5 @@
-const moment = require('moment');
-const axios = require("axios");
+import moment from 'moment';
+import axios from 'axios';
 
 function formatDate(date) {
   return moment(date).format('MMMM D YYYY');
@@ -35,4 +35,4 @@ async function callChatGPT(prompt) {
   }
 }
 
-module.exports = {formatDate, callChatGPT};
+export { formatDate, callChatGPT };

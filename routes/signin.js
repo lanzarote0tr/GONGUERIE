@@ -1,9 +1,9 @@
-var createError = require('http-errors');
-var express = require('express');
-var router = express.Router();
-const helper = require('../helper');
-const bcrypt = require('bcrypt');
-const dbMiddleware = require('../middlewares/dbMiddleware');
+import createError from 'http-errors';
+import express from 'express';
+import bcrypt from 'bcrypt';
+import dbMiddleware from '../middlewares/dbMiddleware.js';
+
+const router = express.Router();
 router.use(dbMiddleware);
 
 router.get('/', function(req, res) {
@@ -12,7 +12,7 @@ router.get('/', function(req, res) {
 
 router.post('/', async function(req, res, next) {
   try {
-    var cmd = 'SELECT pw from user where id = ?';
+    const cmd = 'SELECT pw from user where id = ?';
     const result = await req.conn.query(cmd, [req.body.id]);
     bcrypt.compare(req.body.pw, result[0][0].pw, (err, result) => {
       if (err) {
@@ -41,4 +41,4 @@ router.post('/', async function(req, res, next) {
   }
 });
 
-module.exports = router;
+export default router;
