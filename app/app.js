@@ -15,8 +15,10 @@ import signUpRouter from './routes/signup.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const port = Number(process.env.PORT || 3000);
 
 const app = express();
+app.set('port', port);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -75,3 +77,13 @@ app.use(function(err, req, res, next) {
 });
 
 export default app;
+
+// Start server when run directly
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  app.listen(port, () => {
+    console.log(`Server listening on http://localhost:${port}`);
+  }).on('error', (err) => {
+    console.error('Server error:', err);
+    process.exit(1);
+  });
+}
