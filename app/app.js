@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
@@ -5,6 +6,8 @@ import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
 import expressSession from 'express-session';
 import logger from 'morgan';
+
+dotenv.config();
 
 import indexRouter from './routes/index.js';
 import announcementsRouter from './routes/announcements.js';
@@ -50,7 +53,6 @@ app.use('/error', function(req, res) {
     404: "We couldn't find the page you were looking for.",
     418: "We have an unexpected error. (I became a teapot)",
     500: "We have an internal server error."
-    
   };
   
   // Access the custom error message dynamically using brackets

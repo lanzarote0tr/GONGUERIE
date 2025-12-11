@@ -1,5 +1,8 @@
 import moment from 'moment';
 import axios from 'axios';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 function formatDate(date) {
   return moment(date).format('MMMM D YYYY');
