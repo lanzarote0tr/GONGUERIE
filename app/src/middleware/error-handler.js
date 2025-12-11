@@ -1,3 +1,5 @@
+import env from '../config/env.js';
+
 const clientErrorMessage = {
   404: "We couldn't find the page you were looking for.",
   418: 'We have an unexpected error. (I became a teapot)',
@@ -6,7 +8,7 @@ const clientErrorMessage = {
 
 function errorHandler(err, req, res, next) {
   const status = err.status || 500;
-  if (req.app.get('env') === 'development') {
+  if (env.nodeEnv === 'development') {
     res.status(status).render('error', { status, error: err });
     return;
   }
