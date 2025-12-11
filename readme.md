@@ -40,6 +40,23 @@ OPENAI_API_KEY="Your OpenAI API Key"
 npm start
 ```
 
+## Project Structure / 프로젝트 구조
+```
+app/
+  src/
+    app.js            # Express app factory and middleware wiring
+    server.js         # Boots the HTTP server
+    config/           # env/session/db configuration
+    controllers/      # translate HTTP to service calls
+    services/         # business logic and external API calls
+    repositories/     # database access
+    routes/           # route definitions and composition
+    middleware/       # shared middleware (errors, async wrapper)
+    utils/            # small stateless helpers
+  public/
+  views/
+```
+
 ## Technologies / 구현방법
 NodeJS의 Express 서버를 활용하였고, 서버는 Amazon RDS의 MySQL을 사용하였습니다. 
 
